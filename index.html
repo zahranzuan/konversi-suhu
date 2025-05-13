@@ -1,0 +1,76 @@
+<!-- Simpan sebagai konversi-suhu.html -->
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Konversi Suhu Lengkap</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      text-align: center;
+    }
+    input, select {
+      padding: 10px;
+      margin: 10px;
+      font-size: 16px;
+    }
+    .hasil {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Konversi Suhu (Celsius, Fahrenheit, Kelvin, Reamur)</h2>
+
+  <input type="number" id="inputSuhu" placeholder="Masukkan suhu">
+  <select id="satuanAwal">
+    <option value="c">Celsius</option>
+    <option value="f">Fahrenheit</option>
+    <option value="k">Kelvin</option>
+    <option value="r">Reamur</option>
+  </select>
+
+  <select id="satuanTujuan">
+    <option value="c">Celsius</option>
+    <option value="f">Fahrenheit</option>
+    <option value="k">Kelvin</option>
+    <option value="r">Reamur</option>
+  </select>
+
+  <br>
+  <button onclick="konversiSuhu()">Konversi</button>
+
+  <div class="hasil" id="output"></div>
+
+  <script>
+    function konversiSuhu() {
+      const suhu = parseFloat(document.getElementById('inputSuhu').value);
+      const dari = document.getElementById('satuanAwal').value;
+      const ke = document.getElementById('satuanTujuan').value;
+      let hasil;
+
+      if (isNaN(suhu)) {
+        document.getElementById('output').innerText = "Masukkan suhu yang valid!";
+        return;
+      }
+
+      // Konversi ke Celsius terlebih dahulu
+      let suhuC;
+      if (dari === "c") suhuC = suhu;
+      else if (dari === "f") suhuC = (suhu - 32) * 5/9;
+      else if (dari === "k") suhuC = suhu - 273.15;
+      else if (dari === "r") suhuC = suhu * 5/4;
+
+      // Lalu dari Celsius ke satuan tujuan
+      if (ke === "c") hasil = suhuC;
+      else if (ke === "f") hasil = (suhuC * 9/5) + 32;
+      else if (ke === "k") hasil = suhuC + 273.15;
+      else if (ke === "r") hasil = suhuC * 4/5;
+
+      document.getElementById('output').innerText = `Hasil: ${hasil.toFixed(2)} °${ke.toUpperCase()}`;
+    }
+  </script>
+</body>
+</html>
